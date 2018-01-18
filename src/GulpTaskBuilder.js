@@ -47,7 +47,17 @@ class GulpTaskBuilder {
 	}
 
 	/**
+	* @param {function} 	taskFunction
+	* @param {array|string}	includeInTasks		Name of tasks to include task in, e.g. 'default'
+	*											or ['default', 'watch']
+	*/ 
+	addCustomTask(taskFunction, includeInTasks) {
+
+	}
+
+	/**
 	* Builds and returns the task
+	* Make sure to include watch, dev and default !!!!!
 	* @returns {object}		Object with Gulp task name (key) and gulp function (value)
 	*/
 	getTasks() {

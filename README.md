@@ -51,11 +51,8 @@ The tasks support:
     // Update config to support older browsers (by polyfilling missing features)
     builder.setConfig('targets', ['last 2 versions', 'ie >= 11']);
 
-    // Get the task object with all tasks you added (through builder.addTask())
-    const tasks = builder.getTasks();
-
-    // Add a custom task
-    // Requires were omitted intentionally to keep the file short
+    // Create a custom task
+    // (Requires were omitted intentionally to keep the file short)
     function twig() {
         return gulp.src('www/src/html/*.html', { base: 'www/src/' })
             .pipe(data(() => {
@@ -69,11 +66,12 @@ The tasks support:
             .pipe(notify('Twig done'));
     }
 
-    // Add your custom task to the tasks object that will be exported
-    tasks.twig = twig;
+    // Add the custom task to our builder so that it is included in the default gulp task
+    builder.addCustomTask(twig, ['default']);
 
-    // Export tasks in order to run them through gulp
-    modules.exports = tasks;
+    // Get the task object with all tasks you added (through builder.addTask())
+    // and export tasks in order to run them through gulp
+    modules.exports = builder.getTasks();
     ```
 1. Run your tasks
     ```bash
