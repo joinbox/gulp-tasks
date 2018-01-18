@@ -36,11 +36,14 @@ The tasks support:
     
     // Add a CSS task and slightly change the configuration (entry point)
     builder.addTask('css', {
-        entryPoints: ['main.scss']
+        entryPoints: ['main.scss'] // default is 'styles.scss'
     });
 
     // Add a JS task and change webpack options to support react
-    builder.addTask('js');
+    builder.addTask('js', {
+        sourcePath: 'javascripts', // default is 'js'
+        watch: ['**/*.js?(x)'], // also watch react files; default is ['**/*js']
+    });
     // As the react preset should be added to (and not just replace) the current presets,
     // we can't use a configuration object (as seen in the CSS task above)
     builder.getTask('js').addPreset('react');
@@ -48,7 +51,7 @@ The tasks support:
     // Update config to support older browsers (by polyfilling missing features)
     builder.setConfig('targets', ['last 2 versions', 'ie >= 11']);
 
-    // Get the task object with all tasks you added (builder.addTask)
+    // Get the task object with all tasks you added (through builder.addTask())
     const tasks = builder.getTasks();
 
     // Add a custom task
