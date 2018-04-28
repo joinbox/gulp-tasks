@@ -19,10 +19,10 @@ The tasks support:
 ## Setup
 
 1. Create a new folder
-1. Install **gulp** and **gulp-tasks**:
+1. Install **gulp 4** and **jb-build-tasks**:
     ```bash
-    npm i -D @joinbox/gulp-tasks
-    npm i -g gulp
+    npm i -D @joinbox/jb-build-tasks
+    npm i -g gulp@4
     ```
 1. Add a **gulpfile.js** …
     ```bash
@@ -31,18 +31,26 @@ The tasks support:
 1. … and configure your tasks in it:
     ```javascript
     // Require and initialize our builder:
-    const GulpTaskBuilder = require('gulp-tasks');
-    const builder = new GulpTaskBuilder();
-    
-    // Add a CSS task and slightly change the configuration (entry point)
-    builder.addTask('css', {
-        entryPoints: ['main.scss'] // default is 'styles.scss'
-    });
+    const BuildTasksBuilder = require('jb-build-tasks');
+    const builder = new BuildTasksBuilder();
+
+    // Update CSS config: every config is an object; pass the path to the property you desire to
+    // change and set its new value.
+    builder.setConfig('paths.css.entryPoints', ['main.scss']) // default is 'styles.scss'
+    builder.setConfig('supportedBrowsers', ['>1%']);
+
+    // Babel
+    const BabelConfigBuilder = require('jb-build-tasks').BabelConfigBuilder;
+    const babel = new BabelConfigBuilder();
+    babel.setConfig('…', '…');
+
+    // Webpack
+
 
     // Add a JS task and change webpack options to support react
     builder.addTask('js', {
         sourcePath: 'javascripts', // default is 'js'
-        watch: ['**/*.js?(x)'], // also watch react files; default is ['**/*js']
+        watch: ['**/*.js?(x)'], // also watch react files; default is ['**/*.js']
     });
     // As the react preset should be added to (and not just replace) the current presets,
     // we can't use a configuration object (as seen in the CSS task above)
@@ -78,27 +86,53 @@ The tasks support:
     gulp
     ```
 
+# Tests
+
+There are a few automated tests, run them with `npm test`. To test the implementation, call the gulp
+files in the `test` folder: 
+
+```bash
+cd test && gulp -f gulpfile.default.js
+```
 
 ## Available Tasks
 
-Options and methods: See the corresponding classes (source code)
+The following tasks are available by default. Options and methods: See the corresponding classes (source code)
 
 ### General
-- `gulp dev`: Calls all available `dev` tasks 
-- `gulp watch`: Calls all available `watch` tasks
+- `gulp dev`: Calls all available `dev` tasks (they execute once)
+- `gulp watch`: Calls all available `watch` tasks (they are executed continuously on change)
 - `gulp`: Calls all available `dev` and `watch` tasks
 
-### CSS
-- `cssDev`: Converts CSS files, then halts
-- `cssWatch`: Only watches CSS files (triggers on change)
-- `css`: `cssDev` + `cssWatch`
-- `cssLive`: Converts and minifies files
+Default options are: 
+```javascript
+{
+    paths: {
+        base: './www',
+        source: 'src', // This is where your source files are
+        destination: 'dist', // This is where your dist files go
+    }
+}
+```
 
 ### JS
 - `jsDev`: Converts CSS files, then halts
 - `jsWatch`: Only watches JS files (triggers on change)
 - `js`: `jsDev` + `jsWatch`
 - `jsLive`: Converts and minifies files
+
+Default options are: 
+```javascript
+{
+    
+}
+```
+
+### CSS
+- `cssDev`: Converts CSS files, then halts
+- `cssWatch`: Only watches CSS files (triggers on change)
+- `css`: `cssDev` + `cssWatch`
+- `cssLive`: Converts and minifies files
 
 ### Twig
 …
