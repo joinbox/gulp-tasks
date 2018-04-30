@@ -5,6 +5,4 @@ builder.setConfig('scripts.paths.entries', ['**/!(errorFile).js']);
 
 builder.createTasks();
 
-console.log('Builder tasks: %o', builder.tasks);
-
 module.exports = builder.tasks;
