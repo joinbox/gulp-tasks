@@ -1,8 +1,6 @@
-const BuildTasksBuilder = require('../src/BuildTasksBuilder.js');
-const builder = new BuildTasksBuilder();
+const BuildTask = require('../src/BuildTask.js');
+const builder = new BuildTask();
 builder.setConfig('paths.base', '');
 builder.setConfig('scripts.paths.entries', ['**/errorFile.js']);
-
-builder.createTasks();
-
-module.exports = builder.tasks;
+builder.setConfig('styles.paths.entries', ['**/*.iscss']);
+module.exports = builder.createTasks();

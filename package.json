@@ -1,8 +1,8 @@
 {
-  "name": "@joinbox/build-tasks",
-  "version": "0.0.1",
-  "description": "Re-usable [Gulp 4](https://github.com/gulpjs/gulp/tree/4.0) tasks for Joinbox projects that cover the following file types: - scripts  - styles - images - templates",
-  "main": "index.js",
+  "name": "@joinbox/build-task",
+  "version": "0.1.0",
+  "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
+  "main": "src/BuildTask.js",
   "scripts": {
     "test": "node node_modules/ava/cli.js --watch --verbose --serial"
   },
@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/joinbox/gulp-tasks.git"
   },
-  "author": "",
+  "author": "Felix Steiner",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/joinbox/gulp-tasks/issues"
@@ -32,13 +32,18 @@
     "@babel/core": "^7.0.0-beta.46",
     "@babel/preset-env": "^7.0.0-beta.46",
     "@babel/preset-react": "^7.0.0-beta.46",
+    "@joinbox/eslint-config-joinbox": "^1.0.5",
     "autoprefixer": "^8.4.1",
     "ava": "^0.25.0",
     "babel-loader": "^8.0.0-beta.2",
     "browser-sync": "^2.23.7",
     "colors": "^1.2.1",
+    "del": "^3.0.0",
+    "event-emitter": "^0.3.5",
     "glob": "^7.1.2",
     "gulp": "^4.0.0",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^7.0.1",
     "gulp-print": "^5.0.0",

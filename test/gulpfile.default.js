@@ -1,7 +1,4 @@
-const BuildTasksBuilder = require('../src/BuildTasksBuilder.js');
-const builder = new BuildTasksBuilder();
+const BuildTask = require('../src/BuildTask.js');
+const builder = new BuildTask();
 builder.setConfig('paths.base', '');
-
-builder.createTasks();
-
-module.exports = builder.tasks;
+module.exports = builder.createTasks();

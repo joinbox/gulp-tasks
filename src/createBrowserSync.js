@@ -1,26 +1,31 @@
-const gulp = require('gulp');
 const path = require('path');
+const getPath = require('./getPath');
+const colors = require('colors');
 const browserSync = require('browser-sync').create();
 
-module.exports = function createBrowserSync(templateConfig, paths) {
+/**
+ * Create server
+ * @param  {object} serverConfig	Config for server
+ * @param  {paths} paths         	Config for paths
+ * @param  {EventEmitter} watcher   Event emitter that emits events on change (js, css, html files 
+ *                                  etc.)
+ */
+module.exports = function createBrowserSync(serverConfig, paths, watcher) {
 	
 	// Path where files are served from
-	const htmlDestPath = path.join(paths.base, paths.destination);
+	const htmlDestPath = getPath(paths, serverConfig.paths);
 	// Path to watch – reload browserSync on changes
-	const watchPath = path.join(htmlDestPath, templateConfig.paths.base) + '/' + 
-		templateConfig.paths.entries;
-	console.log('Serve: Serving from %s, watching %s', htmlDestPath, watchPath);
+	const watchPath = path.join(htmlDestPath, serverConfig.paths.watch);
 
-	function serve() {
+	console.log(colors.blue('Serve: Serving from %s, watching %s'), htmlDestPath, watchPath);
+
+	return function() {
 		browserSync.init({
-			server: htmlDestPath,
-			startPath: templateConfig.paths.base,
+			server: path.join(paths.base, paths.destination),
+			startPath: serverConfig.paths.start,
 		});
 
-		gulp.watch(watchPath)
-			.on('change', browserSync.reload);
-	}
-
-	return { serve };
+		watcher.on('change', browserSync.reload);
+	};
 
 };

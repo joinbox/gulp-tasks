@@ -11,7 +11,9 @@ const defaults = {
 		// use ['default'] or ['react'] (not both, react includes default)
 		technologies: ['default'], 
 		paths: {
-			base: 'js',
+			source: 'js',
+			watch: '**/*.js?(x)',
+			destination: 'js',
 			entries: ['main.js'],
 			output: '[name].js',
 		}
@@ -19,24 +21,31 @@ const defaults = {
 	// Use false to not expose styles task
 	styles: {
 		paths: {
-			base: 'css',
+			source: 'css',
+			destination: 'css',
+			watch: '**/*.scss',
 			entries: ['main.scss'],
 		}
 	},
 	// Use false to not template scripts	
 	templates: {
 		paths: {
-			base: 'html',
-			entries: '**/*.html',
+			source: 'html',
+			watch: '**/*.html',
+			destination: 'html',
+			entries: ['**/*.html'],
 		},
 	},
-	development: {
-
-	}, 
 	production: {
 		bustCache: false, // TBD
 	},
+	// False to not add it to tasks
 	server: {
+		paths: {
+			source: 'html',
+			watch: '**/*.html',
+			start: 'html' // Where to point to
+		}
 	},
 	// Browser applies to CSS prefixing and JS babel compilation, see 
 	// https://github.com/browserslist/browserslist#queries

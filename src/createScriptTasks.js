@@ -2,6 +2,7 @@
 const notifier = require('node-notifier');
 const webpack = require('webpack');
 const colors = require('colors');
+const esLintConfig = require('@joinbox/eslint-config-joinbox');
 
 const getWebpackConfig = require('./getWebpackConfig');
 const getNotificationOptions = require('./getNotificationOptions');
