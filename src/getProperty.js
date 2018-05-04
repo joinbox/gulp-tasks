@@ -8,21 +8,21 @@
  *                         value (for the value)
  */
 module.exports = function(object, path) {
-	const slices = path.split('.');
-	let currentObject = object;
-	let parentObject; // Defaults to undefined
-	slices.reduce((prev, slice) => {
-		if (!currentObject[slice]) throw new Error(`getProperty: Property for path ${ prev } not
-			found in object ${ JSON.stringify(object) }, full path is ${ path }.`);
-		parentObject = currentObject;
-		currentObject = currentObject[slice];
-		return prev + '.' + slice;
-	}, '');
-	return {
-		reference: {
-			entity: parentObject,
-			property: slices.pop(),
-		},
-		value: currentObject,
-	};
+    const slices = path.split('.');
+    let currentObject = object;
+    let parentObject; // Defaults to undefined
+    slices.reduce((prev, slice) => {
+        if (!currentObject[slice]) throw new Error(`getProperty: Property for path ${ prev } not
+            found in object ${ JSON.stringify(object) }, full path is ${ path }.`);
+        parentObject = currentObject;
+        currentObject = currentObject[slice];
+        return prev + '.' + slice;
+    }, '');
+    return {
+        reference: {
+            entity: parentObject,
+            property: slices.pop(),
+        },
+        value: currentObject,
+    };
 };

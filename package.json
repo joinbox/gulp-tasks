@@ -2,7 +2,7 @@
   "name": "@joinbox/build-task",
   "version": "0.1.0",
   "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
-  "main": "src/BuildTask.js",
+  "main": "./src/BuildTask.js",
   "scripts": {
     "test": "node node_modules/ava/cli.js --watch --verbose --serial"
   },
