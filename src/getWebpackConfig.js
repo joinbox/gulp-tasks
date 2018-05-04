@@ -72,8 +72,8 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         },
         devtool: 'source-map',
         module: {
-            rules: getWebpackRules(jsConfig.technologies, browsers)
-        }
+            rules: getWebpackRules(jsConfig.technologies, browsers),
+        },
     };
 
 

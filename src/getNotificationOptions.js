@@ -7,12 +7,22 @@ const colors = require('colors');
  *                                  message will be displayed
  */
 module.exports = function(type, content) {
+
     console.log(colors.grey('getNotifyOptions for %s, error %o'), type, content instanceof Error);
     
-    const title = content instanceof Error ? `${ type } failed 😈` : `${ type } done 🚀`;
-    const text = content instanceof Error ? 
-        content.message : 
-        `${ type } successfully compiled${ content ? ': ' + content : '' }.`;
+    let title, text;
+    if (content instanceof Error && content.name === 'LintError') {
+        title = `${ type } did not pass lint 🚑`;
+        text = content.message;
+    }
+    else if (content instanceof Error) {
+        title = `${ type } failed 😈`;
+        text = content.message;
+    }
+    else {
+        title = `${ type } done 🚀`;
+        text = `${ type } successfully compiled${ content ? ': ' + content : '' }.`;
+    }
     
     console.log(colors.grey(`getNotifyOptions: title ${ title }, text ${ text }.`));
     

@@ -27,11 +27,17 @@ module.exports = function createScriptTasks(scriptConfig, pathConfig, browsers, 
             let notificationOptions;
             // Basic error
             if (err) notificationOptions = getNotificationOptions('Scripts', err);
-            // Error when compiling a single or multiple files
+            // Error when compiling a single or multiple files (webpack errors)
             else if (stats.compilation.errors && stats.compilation.errors.length) {
                 notificationOptions = getNotificationOptions('Scripts', 
                     new Error(stats.compilation.errors));
-                console.error(stats.compilation.errors);
+                console.error(colors.red(stats.compilation.errors));
+            }
+            // Warnings (e.g. from esLint)
+            else if (stats.compilation.warnings && stats.compilation.warnings.length) {
+                const err = new Error(`Warning: ${ stats.compilation.warnings.join(', ')}`);
+                err.name = 'LintError';
+                notificationOptions = getNotificationOptions('Scripts', err);
             }
             // All fine
             else {
@@ -41,6 +47,7 @@ module.exports = function createScriptTasks(scriptConfig, pathConfig, browsers, 
             }
             //console.log(stats.compilation);
             notifier.notify(notificationOptions);
+
             done();
         
         });
