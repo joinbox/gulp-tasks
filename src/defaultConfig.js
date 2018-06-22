@@ -1,22 +1,22 @@
 const defaults = {
     // For sub-paths, use arrays!
-    paths: { 
+    paths: {
         base: 'www',
         source: 'src',
         destination: 'dest',
         public: '', // Directory to serve files from
     },
     // Use false to not expose scripts task
-    scripts: { 
+    scripts: {
         // use ['default'] or ['react'] (not both, react includes default)
-        technologies: ['default'], 
+        technologies: ['default'],
         paths: {
             source: 'js',
             watch: '**/*.js?(x)',
             destination: 'js',
             entries: ['main.js'],
             output: '[name].js',
-        }
+        },
     },
     // Use false to not expose styles task
     styles: {
@@ -25,9 +25,9 @@ const defaults = {
             destination: 'css',
             watch: '**/*.scss',
             entries: ['main.scss'],
-        }
+        },
     },
-    // Use false to not template scripts    
+    // Use false to not template scripts
     templates: {
         paths: {
             source: 'html',
@@ -44,13 +44,13 @@ const defaults = {
         paths: {
             source: 'html',
             watch: '**/*.html',
-            start: 'html' // Where to point to
-        }
+            start: 'html', // Where to point to
+        },
     },
-    // Browser applies to CSS prefixing and JS babel compilation, see 
+    // Browser applies to CSS prefixing and JS babel compilation, see
     // https://github.com/browserslist/browserslist#queries
     supportedBrowsers: [
-        'last 2 versions',
+        '>1%',
     ],
 };
 
