@@ -31,7 +31,7 @@ module.exports = function(technologies, browsers) {
 
 
 /**
- * Creates an empty defaultRule. 
+ * Creates an empty defaultRule.
  * We cannot use JSON.stringify to clone defaultRule, regexes will be converted to empty
  * objects!
  */
@@ -44,7 +44,9 @@ function getDefaultRule(browsers) {
                 presets: [
                     [
                         '@babel/preset-env', {
-                            targets: browsers,
+                            targets: {
+                                browsers,
+                            },
                         },
                     ],
                 ],
