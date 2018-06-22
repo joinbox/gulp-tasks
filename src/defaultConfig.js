@@ -3,7 +3,7 @@ const defaults = {
     paths: {
         base: 'www',
         source: 'src',
-        destination: 'dest',
+        destination: 'dist',
         public: '', // Directory to serve files from
     },
     // Use false to not expose scripts task
