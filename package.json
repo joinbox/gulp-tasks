@@ -1,6 +1,6 @@
 {
   "name": "@joinbox/build-task",
-  "version": "0.2.4",
+  "version": "0.3",
   "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
   "main": "./src/BuildTask.js",
   "scripts": {
