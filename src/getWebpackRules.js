@@ -1,4 +1,5 @@
 const colors = require('colors');
+const path = require('path');
 
 module.exports = function(technologies, browsers) {
 
@@ -64,7 +65,8 @@ function getEslintRule() {
             // https://github.com/webpack-contrib/eslint-loader/commit/
             // cf48c8077ad63e689c56600f0cf2a81107fc8b56
             options: {
-                configFile: '../node_modules/@joinbox/eslint-config-joinbox/.eslintrc',
+                configFile: path.join(__dirname, 
+                    '../node_modules/@joinbox/eslint-config-joinbox/.eslintrc'),
                 enforce: 'pre',
                 emitWarning: true,
                 exclude: /node_modules/,

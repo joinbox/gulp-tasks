@@ -71,7 +71,14 @@ below).
     touch gulpfile.js
     ```
 
-1. … and configure your tasks in it:
+1. Either use the default config …
+    ```javascript
+    const BuildTask = require('@joinbox/build-task');
+    const builder = new BuildTask();
+    module.exports = builder.createTasks();
+    ```
+
+1. … or adjust it to match your own setup:
     ```javascript
     // Require and initialize our builder:
     const BuildTask = require('@joinbox/build-task');
