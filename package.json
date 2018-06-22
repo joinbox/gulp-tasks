@@ -1,6 +1,6 @@
 {
   "name": "@joinbox/build-task",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
   "main": "./src/BuildTask.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "url": "https://github.com/joinbox/gulp-tasks/issues"
   },
   "homepage": "https://github.com/joinbox/gulp-tasks#readme",
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.0.0-beta.46",
     "@babel/preset-env": "^7.0.0-beta.46",
     "@babel/preset-react": "^7.0.0-beta.46",
