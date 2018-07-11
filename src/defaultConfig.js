@@ -9,7 +9,7 @@ const defaults = {
     // Use false to not expose scripts task
     scripts: {
         // use ['default'] or ['react'] (not both, react includes default)
-        technologies: ['default'],
+        technologies: ['default', 'eslint'],
         paths: {
             source: 'js',
             watch: '**/*.js?(x)',

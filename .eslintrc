@@ -1,3 +1,6 @@
 {
-  "extends": "@joinbox/joinbox"
+  "extends": "@joinbox/joinbox",
+  "rules": {
+      "no-console": "off",
+  },
 }

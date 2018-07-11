@@ -1,6 +1,6 @@
 {
   "name": "@joinbox/build-task",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
   "main": "./src/BuildTask.js",
   "scripts": {
@@ -29,13 +29,15 @@
   },
   "homepage": "https://github.com/joinbox/gulp-tasks#readme",
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/preset-env": "^7.0.0-beta.46",
-    "@babel/preset-react": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.53",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.0.0-beta.53",
     "@joinbox/eslint-config-joinbox": "^1.0.5",
     "autoprefixer": "^8.4.1",
     "ava": "^0.25.0",
-    "babel-loader": "^8.0.0-beta.2",
+    "babel-loader": "^8.0.0-beta.4",
     "browser-sync": "^2.24.4",
     "colors": "^1.2.1",
     "del": "^3.0.0",
@@ -55,6 +57,6 @@
     "postcss-calc": "^6.0.1",
     "postcss-pxtorem": "^4.0.1",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.6.0"
+    "webpack": "^4.16.0"
   }
 }
