@@ -68,7 +68,7 @@ module.exports = function(technologies, browsers) {
         reactRule.use.options.plugins = [
             // Legacy decorators: see https://github.com/babel/babel/issues/7786
             ['@babel/plugin-proposal-decorators', { legacy: true }],
-            '@babel/plugin-proposal-class-properties',
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
         ];
         reactRule.use.options.presets.push('@babel/preset-react');
         rules.push(reactRule);
