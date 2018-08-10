@@ -14,16 +14,22 @@ const getPath = require('./getPath');
 module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') {
 
 
-    console.log(colors.yellow('Webpack: Create config; jsConfig is \n%s\npathConfig is \n%s'), 
-        JSON.stringify(jsConfig, null, 2), JSON.stringify(pathConfig, null, 2));
+    console.log(
+        colors.yellow('Webpack: Create config; jsConfig is \n%s\npathConfig is \n%s'),
+        JSON.stringify(jsConfig, null, 2),
+        JSON.stringify(pathConfig, null, 2),
+    );
 
 
 
     // Get paths; make sure you're running gulp from the directory where your gulp file lies
     const baseSourcePath = getPath(pathConfig, jsConfig.paths);
     const baseDestinationPath = getPath(pathConfig, jsConfig.paths, 'destination');
-    console.log(colors.yellow('Webpack: baseSourcePath is %s, baseDestinationPath is %s'), 
-        baseSourcePath, baseDestinationPath);
+    console.log(
+        colors.yellow('Webpack: baseSourcePath is %s, baseDestinationPath is %s'),
+        baseSourcePath,
+        baseDestinationPath,
+    );
 
 
 
@@ -33,14 +39,17 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         // 1. Resolve all array's items globs to files
         .reduce((prev, source) => {
             const sourceWithPath = path.join(baseSourcePath, source);
-            console.log(colors.yellow('Webpack: Get files for %s from glob %s'), source, 
-                sourceWithPath);
+            console.log(
+                colors.yellow('Webpack: Get files for %s from glob %s'),
+                source,
+                sourceWithPath,
+            );
             return [...prev, ...glob.sync(sourceWithPath)];
         }, [])
         // 2. Make all paths absolute if it is not already
-        .map((item) => path.isAbsolute(item) ? item : path.join(baseSourcePath, item))
+        .map(item => (path.isAbsolute(item) ? item : path.join(baseSourcePath, item)))
         // 3. Now make an object out of our files (if we pass an array as entry point, webpack will
-        //    create just one file, main.js). The object's key is the relative path from 
+        //    create just one file, main.js). The object's key is the relative path from
         //    baseSourcePath
         .reduce((prev, item) => {
             // Relative path is the difference from baseSourcePath to item and therefore
@@ -49,9 +58,11 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
             // Remove the extension which will be added when saving – if we don't we'll have two
             // extensions
             const extension = path.extname(relativePath);
-            const relativePathWithoutExtension = relativePath.substr(0, relativePath.length - 
-                extension.length);
-            return {...prev, ...{ [relativePathWithoutExtension]: item} };
+            const relativePathWithoutExtension = relativePath.substr(
+                0,
+                relativePath.length - extension.length,
+            );
+            return { ...prev, ...{ [relativePathWithoutExtension]: item } };
         }, {});
 
     console.log(colors.yellow('Webpack: Sources are %s'), Object.values(entries).join(', '));
@@ -61,12 +72,17 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
 
 
     const webpackConfig = {
-        mode: mode,
-        
+        mode,
+        // Resolve babel-loader, eslint-loader etc. to node_modules directory of
+        // @joinbox/build-task, not the main project's node_modules directory where the required
+        // dependencies will be missing.
+        resolveLoader: {
+            modules: [path.resolve(__dirname, '../node_modules')],
+        },
         entry: entries,
         output: {
             filename: jsConfig.paths.output,
-            // Don't use __dirname as it resolves to the node's base directory (where 
+            // Don't use __dirname as it resolves to the node's base directory (where
             // package.json lies)
             path: baseDestinationPath,
         },
@@ -74,15 +90,22 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         module: {
             rules: getWebpackRules(jsConfig.technologies, browsers),
         },
+        // Without this line, jsx files must be imported with their suffix (import a from 'a.jsx').
+        // Asterisk (*) is needed to still allow imports with extension, see
+        // https://webpack.js.org/configuration/resolve/
+        resolve: {
+            extensions: ['.js', '.jsx', '*'],
+        },
     };
 
 
 
-
-
-    console.log(colors.yellow('Webpack: Final config is \n%s'), 
-        JSON.stringify(webpackConfig, null, 2));
+    console.log(
+        colors.yellow('Webpack: Final config is \n%s'),
+        JSON.stringify(webpackConfig, null, 2),
+    );
 
     return webpackConfig;
 
 };
+

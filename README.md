@@ -62,18 +62,27 @@ below).
 
 1. Install **gulp 4** and **build-task** locally, gulp-cli globally:
     ```bash
-    npm i -D @joinbox/build-task gulp@4
-    npm i -g gulpjs/gulp-cli
+    npm i -D @joinbox/build-task gulp@4 gulpjs/gulp-cli
     ```
 
 1. Add a **gulpfile.js** …
     ```bash
     touch gulpfile.js
     ```
+1. Add a `start` script to your `package.json`:
+   ```javascript
+   {
+        scripts: {
+            start: 'node ./node_modules/gulp-cli/bin/gulp.js'
+        }
+   }
+
+   ```
 
 1. Either use the default config …
     ```javascript
     const BuildTask = require('@joinbox/build-task');
+    
     const builder = new BuildTask();
     module.exports = builder.createTasks();
     ```

@@ -9,6 +9,8 @@ const defaults = {
     // Use false to not expose scripts task
     scripts: {
         // use ['default'] or ['react'] (not both, react includes default)
+        // TODO: add config options (e.g. for eslint file), maybe solve through nested arrays with
+        // [['eslint', { filePath: path.resolve('test', 'eslintrc') }]]
         technologies: ['default', 'eslint'],
         paths: {
             source: 'js',
