@@ -76,9 +76,10 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         // Resolve babel-loader, eslint-loader etc. to node_modules directory of
         // @joinbox/build-task, not the main project's node_modules directory where the required
         // dependencies will be missing.
-        resolveLoader: {
+        // ATTENTION: This is only needed when linking to this package, not when installing it.
+        /* resolveLoader: {
             modules: [path.resolve(__dirname, '../node_modules')],
-        },
+        }, */
         entry: entries,
         output: {
             filename: jsConfig.paths.output,
