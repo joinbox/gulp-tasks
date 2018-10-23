@@ -15,16 +15,25 @@ const sourcemaps = require('gulp-sourcemaps');
 const getNotificationOptions = require('./getNotificationOptions');
 const getPath = require('./getPath');
 
+
+/**
+ * Creates all style tasks
+ * @param  {object} styleConfig         Config for styles (see defaultConfig)
+ * @param  {object} paths               Config for paths (see defaultConfig)
+ * @param  {object} browsers            Config for supported browsers (see defaultConfig)
+ * @param  {String} environment         'production' || 'development'
+ * @return {function}                    Gulp task
+ */
 module.exports = function createStyleTasks(
-    styleConfig, 
-    paths, 
-    browsers, 
-    environment = 'development'
+    styleConfig,
+    paths,
+    browsers,
+    environment = 'development',
 ) {
 
-    const sassOptions = environment === 'development' ? { outputStyle: 'expanded'} : 
+    const sassOptions = environment === 'development' ? { outputStyle: 'expanded' } :
         { outputStyle: 'compressed' };
-    
+
     const sourcePath = getPath(paths, styleConfig.paths);
     const sources = styleConfig.paths.entries.map((entry) => path.join(sourcePath, entry));
     const destinationPath = getPath(paths, styleConfig.paths, 'destination');
@@ -67,8 +76,7 @@ module.exports = function createStyleTasks(
 
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(destinationPath))
-            //.pipe(browsersync.reload({stream: true}))
-            //.pipe(browsersyncPatternlab.reload({stream: true}))
+
             .on('end', () => {
                 if (hasErrored) return;
                 notifier.notify(getNotificationOptions('Styles'));

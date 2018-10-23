@@ -10,12 +10,16 @@ const createStyleTasks = require('./createStyleTasks');
 const createTemplateTasks = require('./createTemplateTasks');
 const createBrowserSync = require('./createBrowserSync');
 const createCleanTasks = require('./createCleanTasks');
+// We must use the same browserSync instance across all our files (or it won't reload). Instantiate
+// it here and pass it to all components that need it.
+const browserSyncInstance = require('browser-sync').create();
+
 
 module.exports = class BuildTask {
 
     constructor() {
 
-        // Simple event emitter that can be called when changes happen; serve tasks listens for 
+        // Simple event emitter that can be called when changes happen; serve tasks listens for
         // events and updates on changes
         this.changeWatcher = new EventEmitter();
 
@@ -30,7 +34,7 @@ module.exports = class BuildTask {
 
         // Configuratio needed to create tasks
         this.config = defaultConfig;
-    
+
     }
 
 
@@ -95,7 +99,7 @@ module.exports = class BuildTask {
 
 
     /**
-     * Just emits a change on this.changeWatcher. this.changeWatcher is where our browsersync server 
+     * Just emits a change on this.changeWatcher. this.changeWatcher is where our browsersync server
      * listens to and reloads when a 'change' event. Hook your watch tasks in here.
      */
     emitChange() {
@@ -162,25 +166,32 @@ module.exports = class BuildTask {
         if (!this.config.styles) return;
 
         console.log(colors.cyan('BuildTask: Create style tasks'));
-        
-        const cssDev = createStyleTasks(this.config.styles, this.config.paths, 
-            this.config.supportedBrowsers);
-        const cssProd = createStyleTasks(this.config.styles, this.config.paths, 
-            this.config.supportedBrowsers, 'production');
-    
+
+        const cssDev = createStyleTasks(
+            this.config.styles,
+            this.config.paths,
+            this.config.supportedBrowsers,
+        );
+        const cssProd = createStyleTasks(
+            this.config.styles,
+            this.config.paths,
+            this.config.supportedBrowsers,
+            'production',
+        );
+
         const fullCssDev = gulp.series(
             createCleanTasks(getPath(this.config.paths, this.config.styles.paths, 'destination')),
             cssDev,
-            this.emitChange.bind(this),
+            () => browserSyncInstance.reload({ stream: true }),
         );
 
-        let watchPath = this.getWatchPath(this.config.styles);
+        const watchPath = this.getWatchPath(this.config.styles);
         console.log(colors.cyan('BuildTask: Watch CSS files on %s'), watchPath);
         const cssWatch = () => gulp.watch(watchPath, gulp.series(
-            cssDev, 
-            this.emitChange.bind(this),
+            cssDev,
+            () => browserSyncInstance.reload({ stream: true }),
         ));
-        
+
         this.tasks.set('cssDev', fullCssDev);
         this.tasks.set('cssWatch', cssWatch);
         this.tasks.set('cssProd', cssProd);
@@ -256,9 +267,10 @@ module.exports = class BuildTask {
 
         console.log(colors.cyan('BuildTask: Create serve task'));
         const serve = createBrowserSync(
-            this.config.server, 
-            this.config.paths, 
+            this.config.server,
+            this.config.paths,
             this.changeWatcher,
+            browserSyncInstance,
         );
         this.tasks.set('serve', serve);
         console.log(colors.cyan('BuildTask: Serve task created'));
