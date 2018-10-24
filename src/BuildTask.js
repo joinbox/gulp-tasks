@@ -55,10 +55,11 @@ module.exports = class BuildTask {
      */
     createTasks() {
 
+        // BrowserSync must be initialized before it can be updated
+        this.createServeTask();
         this.createScriptTasks();
         this.createStyleTasks();
         this.createTemplateTasks();
-        this.createServeTask();
         this.createCleanTask();
 
         // Create default task (clears destination, calls all dev then watch tasks)
@@ -171,26 +172,24 @@ module.exports = class BuildTask {
             this.config.styles,
             this.config.paths,
             this.config.supportedBrowsers,
+            browserSyncInstance,
         );
         const cssProd = createStyleTasks(
             this.config.styles,
             this.config.paths,
             this.config.supportedBrowsers,
+            browserSyncInstance,
             'production',
         );
 
         const fullCssDev = gulp.series(
             createCleanTasks(getPath(this.config.paths, this.config.styles.paths, 'destination')),
             cssDev,
-            () => browserSyncInstance.reload({ stream: true }),
         );
 
         const watchPath = this.getWatchPath(this.config.styles);
         console.log(colors.cyan('BuildTask: Watch CSS files on %s'), watchPath);
-        const cssWatch = () => gulp.watch(watchPath, gulp.series(
-            cssDev,
-            () => browserSyncInstance.reload({ stream: true }),
-        ));
+        const cssWatch = () => gulp.watch(watchPath, cssDev);
 
         this.tasks.set('cssDev', fullCssDev);
         this.tasks.set('cssWatch', cssWatch);

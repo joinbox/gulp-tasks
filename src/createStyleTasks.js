@@ -21,13 +21,16 @@ const getPath = require('./getPath');
  * @param  {object} styleConfig         Config for styles (see defaultConfig)
  * @param  {object} paths               Config for paths (see defaultConfig)
  * @param  {object} browsers            Config for supported browsers (see defaultConfig)
+ * @param {object} browserSyncInstance  Instance for browserSync as we must use the same instance
+ *                                      everywhere or reloads won't be triggered.
  * @param  {String} environment         'production' || 'development'
- * @return {function}                    Gulp task
+ * @return {function}                   Gulp task
  */
 module.exports = function createStyleTasks(
     styleConfig,
     paths,
     browsers,
+    browserSyncInstance,
     environment = 'development',
 ) {
 
@@ -76,6 +79,7 @@ module.exports = function createStyleTasks(
 
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(destinationPath))
+            .pipe(browserSyncInstance.stream())
 
             .on('end', () => {
                 if (hasErrored) return;
