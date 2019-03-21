@@ -1,5 +1,6 @@
 const a = 3;
 function multiply(factor) {
-    return factor**factor;
+    return factor ** factor;
 }
-console.log(multiply(a));
+/* global document */
+document.write(multiply(a));

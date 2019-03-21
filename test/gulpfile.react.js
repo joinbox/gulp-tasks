@@ -11,6 +11,7 @@ builder.setConfig('paths.base', '');
 builder.setConfig('scripts.technologies', ['react']);
 builder.setConfig('scripts.paths.entries', ['**/react.jsx']);
 builder.setConfig('server', false);
+builder.setConfig('styles', false);
 builder.createTasks();
 
 module.exports = builder.createTasks();
