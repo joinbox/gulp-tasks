@@ -16,6 +16,9 @@ const defaults = {
             source: 'js',
             watch: '**/*.js?(x)',
             destination: 'js',
+            // If oyu use an array, all files will be concatenated into one single file. If you use
+            // an object, one output file will be generated per property, see
+            // (https://webpack.js.org/configuration/entry-context#naming)
             entries: ['main.js'],
             output: '[name].js',
         },

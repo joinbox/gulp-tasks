@@ -1,8 +1,8 @@
-const glob = require('glob');
 const path = require('path');
 const colors = require('colors');
-const getWebpackRules = require('./getWebpackRules');
-const getPath = require('./getPath');
+const resolveGlobs = require('./resolveGlobs.js');
+const getWebpackRules = require('./getWebpackRules.js');
+const getPath = require('./getPath.js');
 
 /**
  * Create webpack configuration object for options passed in
@@ -31,42 +31,28 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         baseDestinationPath,
     );
 
+    // If entries is an array, create one file; if it's an object, use named chunks, see
+    // https://webpack.js.org/configuration/entry-context#naming
+    let entries;
+    const configEntries = jsConfig.paths.entries;
 
-
-    // Allow globs as entry points – and also (and especially) arrays of globs. Webpack does not
-    // support it, do it manually: https://github.com/webpack/webpack/issues/370
-    const entries = jsConfig.paths.entries
-        // 1. Resolve all array's items globs to files
-        .reduce((prev, source) => {
-            const sourceWithPath = path.join(baseSourcePath, source);
-            console.log(
-                colors.yellow('Webpack: Get files for %s from glob %s'),
-                source,
-                sourceWithPath,
-            );
-            return [...prev, ...glob.sync(sourceWithPath)];
-        }, [])
-        // 2. Make all paths absolute if it is not already
-        .map(item => (path.isAbsolute(item) ? item : path.join(baseSourcePath, item)))
-        // 3. Now make an object out of our files (if we pass an array as entry point, webpack will
-        //    create just one file, main.js). The object's key is the relative path from
-        //    baseSourcePath
-        .reduce((prev, item) => {
-            // Relative path is the difference from baseSourcePath to item and therefore
-            // also the difference where we want to store the file relative to baseDestinationPath
-            const relativePath = path.relative(baseSourcePath, item);
-            // Remove the extension which will be added when saving – if we don't we'll have two
-            // extensions
-            const extension = path.extname(relativePath);
-            const relativePathWithoutExtension = relativePath.substr(
-                0,
-                relativePath.length - extension.length,
-            );
-            return { ...prev, ...{ [relativePathWithoutExtension]: item } };
+    // Entries is a string or array: resolve globs to corresponding files
+    if (Array.isArray(configEntries) || typeof configEntries === 'string') {
+        entries = resolveGlobs(configEntries, baseSourcePath);
+    }
+    // Entries is an object: Resolve object's values to files, keep keys intact
+    else if (configEntries !== null && typeof configEntries === 'object') {
+        entries = Object.keys(configEntries).reduce((prev, key) => {
+            prev[key] = resolveGlobs(configEntries[key], baseSourcePath);
+            return prev;
         }, {});
+    }
+    // Entries are invalid
+    else {
+        throw new Error(`path.entries of jsConfig must be an Array, String or Object, you passed ${configEntries}`);
+    }
 
-    console.log(colors.yellow('Webpack: Sources are %s'), Object.values(entries).join(', '));
-
+    console.log(colors.yellow('Webpack: entries were %o, are now %o', configEntries, entries));
 
 
 
