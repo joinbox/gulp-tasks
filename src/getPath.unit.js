@@ -31,13 +31,13 @@ test('correctly resolves absolute base path', (t) => {
             source: 'js',
         },
     );
-    t.is(resolved, path.join('/path/to/test/src/js'));
+    t.is(resolved, '/path/to/test/src/js');
 });
 
 test('correctly resolves to type provided', (t) => {
     const resolved = getPath(
         {
-            base: process.cwd(),
+            base: '/path/to/root/',
             myType: '../test/src',
         },
         {
@@ -45,7 +45,7 @@ test('correctly resolves to type provided', (t) => {
         },
         'myType',
     );
-    t.is(resolved, path.join(process.cwd(), '../test/src/js'));
+    t.is(resolved, '/path/to/test/src/js');
 });
 
 test('correctly resolves absolute non-base paths', (t) => {
@@ -59,5 +59,5 @@ test('correctly resolves absolute non-base paths', (t) => {
         },
         'myType',
     );
-    t.is(resolved, path.join('/root/test/src/js'));
+    t.is(resolved, '/root/test/src/js');
 });
