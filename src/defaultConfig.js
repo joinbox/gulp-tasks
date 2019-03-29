@@ -1,5 +1,8 @@
+/**
+ * Config that serves as a default for the build task.
+ */
+
 const defaults = {
-    // For sub-paths, use arrays!
     paths: {
         base: 'www',
         source: 'src',
@@ -16,9 +19,9 @@ const defaults = {
             source: 'js',
             watch: '**/*.js?(x)',
             destination: 'js',
-            // If oyu use an array, all files will be concatenated into one single file. If you use
+            // If you use an array, all files will be concatenated into one single file. If you use
             // an object, one output file will be generated per property, see
-            // (https://webpack.js.org/configuration/entry-context#naming)
+            // https://webpack.js.org/configuration/entry-context#naming
             entries: ['main.js'],
             output: '[name].js',
         },

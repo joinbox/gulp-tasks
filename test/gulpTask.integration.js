@@ -34,6 +34,13 @@ const expectations = new Map([
             'main.js', 'main.js.map',
         ],
     ]],
+    ['gulpfile.absoluteMultipleEntries.js', [
+        'js', [
+            // Entries are a simple array and not a named object, therefore only one file will
+            // be exported
+            'main.js', 'main.js.map',
+        ],
+    ]],
     ['gulpfile.default.js', [
         'css', [
             'main.css', 'main.css.map',
@@ -82,7 +89,7 @@ test('creates files', async(t) => {
         console.log('gulpfile used is', gulpfile);
         // Only execute prod task as dev/default tasks create a watcher, process won't end
         await exec(`npx gulp prod -f ./test/${gulpfile}`);
-        const tree = (dirTree('./test/dist/'));
+        const tree = dirTree('./test/dist/');
         const reformatted = reformatTree(tree.children, []);
         t.deepEqual(reformatted, expectation);
     }

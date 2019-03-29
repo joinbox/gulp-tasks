@@ -4,7 +4,8 @@
   "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
   "main": "./src/BuildTask.js",
   "scripts": {
-    "test": "node node_modules/ava/cli.js --watch --verbose --serial --fail-fast"
+    "test": "node node_modules/.bin/ava --verbose",
+    "test:dev": "node node_modules/.bin/ava --watch --verbose --serial --fail-fast"
   },
   "ava": {
     "files": [

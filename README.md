@@ -140,14 +140,26 @@ below).
     gulp
     ```
 
+# Paths
+A word about PATHS:
+- Paths are generated hierarchically from different config properties:
+    - JS: path.join(paths.base, paths.source, scripts.paths.source) +
+      every entry in scripts.paths.entries
+    - CSS: path.join(paths.base, paths.source, styles.paths.source) +
+      every entry in styles.paths.entries
+- paths.base, paths.source, scripts.paths.source and styles.paths.source must be strings; they
+  may be relative (to process.cwd()) or absolute. 
+- Use empty strings ('') if there is no common denominator between JS and CSS.
+- Entries may be objects (JS) or arrays (JS and CSS), see 
+  [webpack config](https://webpack.js.org/configuration/entry-context#naming)
+
 
 
 # Tests
 
-There are a few automated tests, run them with `npm test`. To test the implementation, call the gulp
-files in the `test` folder: 
-
-```bash
-cd test && gulp -f gulpfile.default.js
-```
+- There are a few automated tests, run them with `npm test`. 
+- To test a single gulp file, call the gulp files in the `test` folder: 
+  ```bash
+    cd test && gulp -f gulpfile.default.js
+  ```
 

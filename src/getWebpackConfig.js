@@ -22,12 +22,15 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
 
 
 
-    // Get paths; make sure you're running gulp from the directory where your gulp file lies
-    const baseSourcePath = getPath(pathConfig, jsConfig.paths);
     const baseDestinationPath = getPath(pathConfig, jsConfig.paths, 'destination');
+
+    // Make sure we only join paths together *after* entry points are known, as entries may be
+    // absolute.
+    const baseSourceComponents = [pathConfig.base, pathConfig.source, jsConfig.paths.source];
+
     console.log(
         colors.yellow('Webpack: baseSourcePath is %s, baseDestinationPath is %s'),
-        baseSourcePath,
+        baseSourceComponents,
         baseDestinationPath,
     );
 
@@ -38,12 +41,12 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
 
     // Entries is a string or array: resolve globs to corresponding files
     if (Array.isArray(configEntries) || typeof configEntries === 'string') {
-        entries = resolveGlobs(configEntries, baseSourcePath);
+        entries = resolveGlobs(configEntries, baseSourceComponents);
     }
     // Entries is an object: Resolve object's values to files, keep keys intact
     else if (configEntries !== null && typeof configEntries === 'object') {
         entries = Object.keys(configEntries).reduce((prev, key) => {
-            prev[key] = resolveGlobs(configEntries[key], baseSourcePath);
+            prev[key] = resolveGlobs(configEntries[key], baseSourceComponents);
             return prev;
         }, {});
     }
@@ -52,7 +55,7 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         throw new Error(`path.entries of jsConfig must be an Array, String or Object, you passed ${configEntries}`);
     }
 
-    console.log(colors.yellow('Webpack: entries were %o, are now %o', configEntries, entries));
+    console.log(colors.yellow(`Webpack: entries were ${JSON.stringify(configEntries)}, are now ${JSON.stringify(entries)}`));
 
 
 

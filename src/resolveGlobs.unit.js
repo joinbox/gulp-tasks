@@ -3,8 +3,7 @@ const path = require('path');
 const resolveGlobs = require('./resolveGlobs');
 
 test('resolves globs from string', (t) => {
-    const basePath = path.join(__dirname, '../test/src');
-    const result = resolveGlobs('**/*.js', basePath);
+    const result = resolveGlobs('**/*.js', [__dirname, '../test/src']);
     t.is(result.length, 5);
 });
 
@@ -15,15 +14,13 @@ test('works without basePath', (t) => {
 });
 
 test('resolves globs from array', (t) => {
-    const basePath = path.join(__dirname, '../test/src');
     const globs = ['**/m*.js', '**/o*.js'];
-    const result = resolveGlobs(globs, basePath);
+    const result = resolveGlobs(globs, [__dirname, '../test/src']);
     t.is(result.length, 3);
 });
 
 test('returns empty array if no match is found', (t) => {
-    const basePath = path.join(__dirname, '../test/src');
     const globs = ['**/completely-invalid-file-path.jbx'];
-    const result = resolveGlobs(globs, basePath);
+    const result = resolveGlobs(globs, [__dirname, '../test/src']);
     t.deepEqual(result, []);
 });

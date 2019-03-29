@@ -1,6 +1,6 @@
 const test = require('ava');
 const path = require('path');
-const getPath = require('./getPath');
+const getPath = require('./getPath.js');
 
 test('throws if data is missing', (t) => {
     t.throws(() => getPath({}), /base property/);
@@ -24,14 +24,14 @@ test('correctly resolves relative path', (t) => {
 test('correctly resolves absolute base path', (t) => {
     const resolved = getPath(
         {
-            base: process.cwd(),
+            base: '/path/to/root/',
             source: '../test/src',
         },
         {
             source: 'js',
         },
     );
-    t.is(resolved, path.join(process.cwd(), '../test/src/js'));
+    t.is(resolved, path.join('/path/to/test/src/js'));
 });
 
 test('correctly resolves to type provided', (t) => {
@@ -52,12 +52,12 @@ test('correctly resolves absolute non-base paths', (t) => {
     const resolved = getPath(
         {
             base: '', // Make sure not the base path is absolute for this test case
-            myType: path.join(process.cwd(), '../test/src'),
+            myType: '/root/test/src',
         },
         {
             myType: 'js',
         },
         'myType',
     );
-    t.is(resolved, path.join(process.cwd(), '../test/src/js'));
+    t.is(resolved, path.join('/root/test/src/js'));
 });
