@@ -11,6 +11,7 @@ const plumber = require('gulp-plumber');
 const print = require('gulp-print').default;
 const colors = require('colors');
 const sourcemaps = require('gulp-sourcemaps');
+const gulpStylelint = require('gulp-stylelint');
 
 const getNotificationOptions = require('./getNotificationOptions');
 const getPath = require('./getPath');
@@ -65,6 +66,15 @@ module.exports = function createStyleTasks(
                         hasErrored = true;
                     })
             )
+
+            .pipe(gulpStylelint({
+                reporters: [
+                    {
+                        formatter: 'string',
+                        console: true,
+                    },
+                ],
+            }))
 
             .pipe(postcss([
                 autoprefixer({
