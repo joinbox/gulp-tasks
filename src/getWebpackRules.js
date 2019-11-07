@@ -24,6 +24,7 @@ function getDefaultRule(browsers) {
                 ],
                 babelrc: false,
                 cacheDirectory: true,
+                exclude: /core-js/,
             },
         },
     };
