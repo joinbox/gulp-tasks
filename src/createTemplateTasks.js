@@ -6,7 +6,7 @@ const colors = require('colors');
 const print = require('gulp-print').default;
 const getPath = require('./getPath');
 
-module.exports = function createTemplateTasks(templateConfig, paths, environment) {
+module.exports = function createTemplateTasks(templateConfig, paths, environment = 'development') {
 
     const sources = getPath(paths, templateConfig.paths);
     const destination = getPath(paths, templateConfig.paths, 'destination');

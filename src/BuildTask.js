@@ -114,9 +114,9 @@ module.exports = class BuildTask {
      * Removes the destination folder
      * @private
      */
-    createCleanTask() {
+    createCleanTask(mode = 'development') {
         this.tasks.set('clean', 
-            createCleanTasks(path.join(this.config.paths.base, this.config.paths.destination)));
+            createCleanTasks(path.join(this.config.paths.base, mode === 'development' ? this.config.paths.destination_dev : this.config.paths.destination)));
     }
 
 

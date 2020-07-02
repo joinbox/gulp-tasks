@@ -7,6 +7,7 @@ const defaults = {
         base: 'www',
         source: 'src',
         destination: 'dist',
+        destination_dev: 'dist_dev',
         public: '', // Directory to serve files from
     },
     // Use false to not expose scripts task
