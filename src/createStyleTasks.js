@@ -5,7 +5,6 @@ const notifier = require('node-notifier');
 const sassGlob = require('gulp-sass-glob');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
-const pxtorem = require('postcss-pxtorem');
 const calc = require('postcss-calc');
 const plumber = require('gulp-plumber');
 const print = require('gulp-print').default;
@@ -69,10 +68,6 @@ module.exports = function createStyleTasks(
             .pipe(postcss([
                 autoprefixer({
                     browsers: browsers
-                }),
-                pxtorem({
-                    propWhiteList: [],
-                    rootValue: 16
                 }),
                 calc
             ]))
