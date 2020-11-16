@@ -65,7 +65,7 @@ module.exports = function(technologies, browsers) {
         console.log(colors.yellow('Webpack: Use react'));
         // Clone default rule before modifying it
         const reactRule = getDefaultRule(browsers);
-        reactRule.test = /.*\.jsx?$/;
+        reactRule.test = /.*\.m?jsx?$/;
         reactRule.use.options.plugins = [
             // Legacy decorators: see https://github.com/babel/babel/issues/7786
             ['@babel/plugin-proposal-decorators', { legacy: true }],
