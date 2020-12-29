@@ -1,23 +1,19 @@
 {
   "name": "@joinbox/build-task",
   "version": "0.5.2",
-  "description": "Re-usable gulp 4/webpack build tasks for Joinbox projects",
-  "main": "./src/BuildTask.js",
+  "description": "Re-usable gulp 4 based build tasks for Joinbox projects",
+  "main": "./src/main.js",
   "scripts": {
-    "test": "node node_modules/.bin/ava --verbose",
-    "test:dev": "node node_modules/.bin/ava --watch --verbose --serial --fail-fast"
+    "test": "npx ava --verbose --watch --serial"
   },
   "ava": {
     "files": [
-      "**/*.unit.js",
-      "**/*.integration.js"
+      "src/**/*.unit.mjs",
+      "src/**/*.integration.mjs"
     ],
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit",
-    "tap": true,
-    "failFast": true
+    "ignoredByWatcher": [
+      "test/dist"
+    ]
   },
   "repository": {
     "type": "git",
@@ -30,37 +26,35 @@
   },
   "homepage": "https://github.com/joinbox/gulp-tasks#readme",
   "dependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "autoprefixer": "^9.3.0",
-    "ava": "^0.25.0",
-    "babel-loader": "^8.0.4",
-    "browser-sync": "^2.26.3",
-    "colors": "^1.2.1",
-    "del": "^3.0.0",
-    "eslint-loader": "^2.1.1",
-    "event-emitter": "^0.3.5",
-    "glob": "^7.1.2",
-    "gulp": "^4.0.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-if": "^2.0.2",
-    "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-print": "^5.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sass-glob": "^1.0.9",
-    "gulp-sourcemaps": "^2.6.4",
-    "node-notifier": "^5.3.0",
-    "postcss-calc": "^7.0.0",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^4.22.0"
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "autoprefixer": "^10.1.0",
+    "core-js": "^3.8.1",
+    "gulp": "^4.0.2",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "node-notifier": "^9.0.0",
+    "node-sass": "^5.0.0",
+    "postcss": "^8.2.1",
+    "postcss-calc": "^7.0.5",
+    "rollup": "^2.35.1",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "devDependencies": {
-    "@joinbox/eslint-config-joinbox": "^1.0.8",
-    "directory-tree": "^2.2.1",
-    "eslint": "^5.15.3"
+    "@joinbox/eslint-config-joinbox": "^1.0.9",
+    "ava": "^3.14.0",
+    "browser-sync": "^2.26.13",
+    "del": "^6.0.0"
   }
 }

@@ -1,5 +1,7 @@
-import number from './module';
+import include from './include.js';
+import PrivatePropClass from './PrivatePropClass.js';
 
-const obj = { number };
-console.log({ ...obj, spread: true }); //eslint-disable-line
-// console.log('change');
+console.log(include(5));
+
+const privateProp = new PrivatePropClass();
+console.log(privateProp.getPrivateField());
