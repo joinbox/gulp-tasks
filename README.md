@@ -2,9 +2,10 @@
 
 Re-usable [Gulp 4](https://github.com/gulpjs/gulp/tree/4.0) tasks for Joinbox projects that provide
 reasonable defaults for the following file types:
-- scripts 
-- styles
-- images (TBD)
+- [x] scripts 
+- [x] styles
+- [ ] images (TBD)
+- [ ] clear dist directory (TBD)
 
 All tasks support:
 - BrowserSync
@@ -25,7 +26,7 @@ Styles support:
 
 # Usage
 
-1. Install task: `npm i @joinbox/build-task`
+1. Install task: `npm i @joinbox/build-task browser-sync gulp`
 1. Copy the contents of the provided [gulpfile.js](gulpfile.js) to your project
 1. Change import path: `{ buildJavaScript, buildStyles } = require('@joinbox/build-task')`
 1. Modify paths where needed
