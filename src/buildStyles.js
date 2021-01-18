@@ -23,10 +23,13 @@ const buildStyles = ({ sourcePath, destinationPath, minify = false } = {}) => {
     return new Promise((resolve, reject) => {
         gulp.src(sourcePath)
             .pipe(plumber({
-                errorHandler: err => notifier.notify({
-                    title: '🤬 Styles failed',
-                    message: err.message,
-                }),
+                errorHandler: (err) => {
+                    notifier.notify({
+                        title: '🤬 Styles failed',
+                        message: err.message,
+                    });
+                    console.error(err);
+                },
             }))
             .pipe(sourcemaps.init())
             .pipe(sassGlob())

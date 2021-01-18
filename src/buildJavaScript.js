@@ -25,10 +25,13 @@ const build = ({ sourcePath, destinationPath, minify = false } = {}) => {
 
         src(sourcePath)
             .pipe(plumber({
-                errorHandler: err => notifier.notify({
-                    title: '🤬 Scripts failed',
-                    message: err.message,
-                }),
+                errorHandler: (err) => {
+                    notifier.notify({
+                        title: '🤬 Scripts failed',
+                        message: err.message,
+                    });
+                    console.error(err);
+                },
             }))
             .pipe(sourcemaps.init())
             .pipe(rollup({
