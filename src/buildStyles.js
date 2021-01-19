@@ -63,7 +63,10 @@ const buildStyles = ({ sourcePath, destinationPath, minify = false } = {}) => {
                     resolve();
                 }
             })
-            .on('error', reject);
+            .on('error', (err) => {
+                console.error(err);
+                reject(err);
+            });
 
     });
 
