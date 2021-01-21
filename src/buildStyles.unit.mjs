@@ -10,11 +10,14 @@ const destination = join(basePath, '../test/dist/css');
 const source = join(basePath, '../test/src/sass');
 const clear = () => del(join(basePath, '../test/dist'));
 
+
 test('builds sass file', async(t) => {
     await clear();
     await buildStyles({
         sourcePath: join(source, 'main.scss'),
         destinationPath: destination,
+        // This config is needed for a -webkit prefix that we're testing for below
+        supportedBrowsers: ['>1%', 'not dead', 'IE 11'],
     });
     const files = readdirSync(destination);
     const content = readFileSync(join(destination, 'main.css'), 'utf8');

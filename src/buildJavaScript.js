@@ -12,7 +12,12 @@ const eslint = require('@rollup/plugin-eslint');
 
 
 
-const build = ({ sourcePath, destinationPath, minify = false } = {}) => {
+const build = ({
+    sourcePath,
+    destinationPath,
+    minify = false,
+    supportedBrowsers = [],
+} = {}) => {
 
     const size = gulpSize({
         showFiles: true,
@@ -38,7 +43,9 @@ const build = ({ sourcePath, destinationPath, minify = false } = {}) => {
                 plugins: [
                     // Only lint our internal code (before babeling it or resolving node modules)
                     eslint({
-                        extends: '@joinbox/joinbox',
+                        baseConfig: {
+                            extends: '@joinbox/joinbox',
+                        },
                     }),
                     // Rollup does not resolve node_modules by itself – it needs a plugin
                     nodeResolve({
@@ -57,9 +64,7 @@ const build = ({ sourcePath, destinationPath, minify = false } = {}) => {
                         presets: [
                             ['@babel/preset-env', {
                                 useBuiltIns: 'usage',
-                                targets: {
-                                    ie: 11,
-                                },
+                                targets: supportedBrowsers,
                                 corejs: 3,
                             }],
                         ],

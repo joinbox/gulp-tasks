@@ -9,7 +9,12 @@ const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpSize = require('gulp-size');
 
-const buildStyles = ({ sourcePath, destinationPath, minify = false } = {}) => {
+const buildStyles = ({
+    sourcePath,
+    destinationPath,
+    minify = false,
+    supportedBrowsers = [],
+} = {}) => {
 
     const sassOptions = {
         outputStyle: minify ? 'compressed' : 'expanded',
@@ -43,7 +48,7 @@ const buildStyles = ({ sourcePath, destinationPath, minify = false } = {}) => {
             }))
             .pipe(postcss([
                 autoprefixer({
-                    overrideBrowserslist: ['>1%', 'not dead', 'IE 11'],
+                    overrideBrowserslist: supportedBrowsers,
                 }),
                 calc,
             ]))

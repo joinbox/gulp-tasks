@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/joinbox/gulp-tasks#readme",
   "dependencies": {
-    "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
@@ -36,7 +35,6 @@
     "@rollup/plugin-node-resolve": "^11.0.1",
     "autoprefixer": "^10.1.0",
     "core-js": "^3.8.1",
-    "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^9.0.0",
@@ -47,6 +45,8 @@
     "node-notifier": "^9.0.0",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.1",
+    "gulp": "^4.0.2",
+    "@babel/core": "^7.12.10",
     "postcss-calc": "^7.0.5",
     "rollup": "^2.35.1",
     "rollup-plugin-terser": "^7.0.2"
@@ -54,7 +54,10 @@
   "devDependencies": {
     "@joinbox/eslint-config-joinbox": "^1.0.9",
     "ava": "^3.14.0",
-    "browser-sync": "^2.26.13",
     "del": "^6.0.0"
+  },
+  "peerDependencies": {
+    "gulp": "^4.0.2",
+    "@babel/core": "^7.12.10"
   }
 }
