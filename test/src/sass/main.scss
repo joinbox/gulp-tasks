@@ -1,0 +1,13 @@
+$primary-color: #333;
+
+.component {
+
+    margin: 0;
+    background-color: $primary-color;
+
+    &-inner {
+        margin: 10px;
+        appearance: none;
+    }
+    
+}

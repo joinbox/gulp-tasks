@@ -1,5 +1,0 @@
-rule {
-    $invalidSelector {
-        invalidProperty: invalidValue-
-    }
-}
