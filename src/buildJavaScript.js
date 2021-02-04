@@ -9,6 +9,7 @@ const notifier = require('node-notifier');
 const gulpSize = require('gulp-size');
 const plumber = require('gulp-plumber');
 const eslint = require('@rollup/plugin-eslint');
+const eslintRules = require('@joinbox/eslint-config-joinbox');
 
 
 
@@ -42,10 +43,15 @@ const build = ({
             .pipe(rollup({
                 plugins: [
                     // Only lint our internal code (before babeling it or resolving node modules)
+                    // Options are defined in
+                    // https://eslint.org/docs/developer-guide/nodejs-api#cliengine, even though
+                    // CLIEngine seems to have been deprecated. Do use those keys (not the ones
+                    // from the ESLint constructor) – or you will suffer
+                    // We cannot resolve the .eslintrc of Joinbox via path,
+                    // therefore we have to import it.
                     eslint({
-                        baseConfig: {
-                            extends: '@joinbox/joinbox',
-                        },
+                        ...eslintRules,
+                        useEslintrc: false,
                     }),
                     // Rollup does not resolve node_modules by itself – it needs a plugin
                     nodeResolve({
