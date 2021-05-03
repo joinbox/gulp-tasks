@@ -8,7 +8,7 @@ const colors = require('colors');
  */
 function getDefaultRule(browsers) {
     return {
-        test: /\.js$/,
+        test: /\.m?js$/,
         // exclude: [path.resolve(__dirname, 'node_modules')],
         use: {
             loader: 'babel-loader',
@@ -33,7 +33,7 @@ function getDefaultRule(browsers) {
 
 function getEslintRule() {
     return {
-        test: /\.jsx?$/,
+        test: /\.m?jsx?$/,
         use: {
             loader: 'eslint-loader',
             // Location of .eslintrc: See webpack config,

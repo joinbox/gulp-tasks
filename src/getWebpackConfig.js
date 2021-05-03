@@ -84,7 +84,7 @@ module.exports = function(jsConfig, pathConfig, browsers, mode = 'development') 
         // Asterisk (*) is needed to still allow imports with extension, see
         // https://webpack.js.org/configuration/resolve/
         resolve: {
-            extensions: ['.js', '.jsx', '*'],
+            extensions: ['.js', '.jsx', '.mjs', '*'],
         },
     };
 
