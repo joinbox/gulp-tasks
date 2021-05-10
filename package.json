@@ -59,6 +59,7 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.14.0",
+    "babel-eslint": "^10.1.0",
     "gulp": "^4.0.2",
     "postcss": "^8.2.14"
   }

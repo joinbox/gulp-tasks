@@ -26,7 +26,7 @@ Styles support:
 
 # Usage
 
-1. Install task: `npm i @joinbox/build-task browser-sync gulp`
+1. Install task and peer dependencies: `npm i @joinbox/build-task browser-sync gulp babel-eslint`
 1. Copy the contents of the provided [gulpfile.js](gulpfile.js) to your project
 1. Change import path: `{ buildJavaScript, buildStyles } = require('@joinbox/build-task')`
 1. Modify paths where needed

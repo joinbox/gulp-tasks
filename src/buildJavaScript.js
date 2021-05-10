@@ -49,10 +49,11 @@ const build = ({
                     // We cannot resolve the .eslintrc of Joinbox via path,
                     // therefore we have to import it.
                     eslint({
-                        ...eslintRules,
-                        useEslintrc: false,
                         // Use babel-eslint to lint JS as it supports ESNext
                         parser: 'babel-eslint',
+                        ...eslintRules,
+                        // Place useEslintrc at the end to overwrite contradicting properties
+                        useEslintrc: false,
                     }),
                     // Rollup does not resolve node_modules by itself – it needs a plugin
                     nodeResolve({
