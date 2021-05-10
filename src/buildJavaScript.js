@@ -12,7 +12,6 @@ const eslint = require('@rollup/plugin-eslint');
 const eslintRules = require('@joinbox/eslint-config-joinbox');
 
 
-
 const build = ({
     sourcePath,
     destinationPath,
@@ -52,6 +51,8 @@ const build = ({
                     eslint({
                         ...eslintRules,
                         useEslintrc: false,
+                        // Use babel-eslint to lint JS as it supports ESNext
+                        parser: 'babel-eslint',
                     }),
                     // Rollup does not resolve node_modules by itself – it needs a plugin
                     nodeResolve({

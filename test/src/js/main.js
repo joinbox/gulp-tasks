@@ -1,4 +1,4 @@
-import include from './include.js';
+import include from './include.mjs';
 import PrivatePropClass from './PrivatePropClass.js';
 
 console.log(include(5));
