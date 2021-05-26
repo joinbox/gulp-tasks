@@ -58,6 +58,10 @@ const build = ({
                     // Rollup does not resolve node_modules by itself – it needs a plugin
                     nodeResolve({
                         browser: true,
+                        // If we install e.g. the events NPM module and use it in a package (e.g
+                        // Joinimation), rollup should use the *local* version, not a global one
+                        // (as events does not exist in the browser environment)
+                        preferBuiltins: false,
                     }),
                     // Some node modules use CJS (instead of native ES6 modules) – we must teach
                     // rollup how to resolve them
