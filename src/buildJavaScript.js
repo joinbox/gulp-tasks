@@ -63,12 +63,13 @@ const build = ({
                         // (as events does not exist in the browser environment)
                         preferBuiltins: false,
                     }),
-                    // Some node modules use CJS (instead of native ES6 modules) – we must teach
-                    // rollup how to resolve them
-                    commonjs(),
+                    // Babel must come before common-js or common-js will be given too modern
+                    // code to handle
                     babel({
                         babelHelpers: 'bundled',
                         plugins: [
+                            // Use decorators for legacy reasons (MobX, e.g. on Careerplus)
+                            ['@babel/plugin-proposal-decorators', { legacy: true }],
                             '@babel/plugin-proposal-class-properties',
                             '@babel/plugin-proposal-private-methods',
                         ],
@@ -82,6 +83,9 @@ const build = ({
                             }],
                         ],
                     }),
+                    // Some node modules use CJS (instead of native ES6 modules) – we must teach
+                    // rollup how to resolve them
+                    commonjs(),
                     // If environment is not develop, minify JavaScript. Don't do so on dev
                     // environment to improve speed
                     ...(minify ? [terser()] : []),
