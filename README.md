@@ -47,9 +47,9 @@ system for our tests
 * Update `proxy-url`
 ​
 ## package.json:
-* Change `@joinbox/build-task to newest version 
+* Change `@joinbox/build-task` to newest version 
 * Remove `node-sass` and all other dependencies of the previous build task
-* Replace 'scripts' with
+* Replace `scripts` with
     ```
     "scripts": {
         "start": "npx gulp",
@@ -57,8 +57,8 @@ system for our tests
     },
     ```
 ​
-### console
-````
+## console
+```
 npm i --save-dev "postcss"
 npm i --save-dev del
 npm i --save-dev imagemin
