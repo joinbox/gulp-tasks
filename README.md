@@ -47,8 +47,11 @@ system for our tests
 * Update `proxy-url`
 ​
 ## package.json:
-* Change `@joinbox/build-task` to newest version 
+* Change `@joinbox/build-task` to newest version 
 * Remove `node-sass` and all other dependencies of the previous build task
+* Remove `@babel/polyfill`, `regenerator-runtime/runtime`
+* Make sure you **NOT** use `core-js` v2; use v3 (which should not be necessary, as it is compiled
+into your dist files by the build task)
 * Replace `scripts` with
     ```
     "scripts": {
@@ -56,12 +59,16 @@ system for our tests
         "build": "npx gulp live"
     },
     ```
+
+## main.js
+- Remove `@babel/polyfill`, `regenerator-runtime/runtime` and `core-js/stable`. They are replaced
+by the task's `useBuiltIns: true` which compiles `core-js` into the dist files where needed
 ​
 ## console
-```
-npm i --save-dev "postcss"
-npm i --save-dev del
-npm i --save-dev imagemin
-npm i
-npm start
-```
+* Install all dependencies that are required in your current `gulpfile.js`
+    ```
+    npm i --save-dev postcss del imagemin
+    ````
+* Delete current modules: `rm -r node_modules`
+* Install modules: `npm i`
+* `npm start`
