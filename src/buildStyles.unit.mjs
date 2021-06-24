@@ -57,3 +57,16 @@ test('works with minify', async(t) => {
     t.is(content.split(/\n/g).length < 5, true);
     await clear();
 });
+
+test('uses dart-sass with new divisions', async(t) => {
+    await clear();
+    await buildStyles({
+        sourcePath: join(source, 'main.scss'),
+        destinationPath: destination,
+        minify: true,
+    });
+    const content = readFileSync(join(destination, 'main.css'), 'utf8');
+    t.is(content.includes('24px'), true);
+    t.is(content.includes('36px/2'), true);
+    await clear();
+});

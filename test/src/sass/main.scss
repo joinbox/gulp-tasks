@@ -1,9 +1,15 @@
+@use "sass:math";
+
 $primary-color: #333;
 
 .component {
 
     margin: 0;
     background-color: $primary-color;
+
+    // Check if new Dart Sass based divisions work
+    font-size: math.div(12px, 0.5);
+    line-height: 36px / 2;
 
     &-inner {
         margin: 10px;

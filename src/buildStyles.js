@@ -8,6 +8,9 @@ const calc = require('postcss-calc');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpSize = require('gulp-size');
+// Use Dart Sass as compiler: It's Sass' default implementation and works with newer versions
+// of node that node-sass
+sass.compiler = require('sass');
 
 const buildStyles = ({
     sourcePath,
