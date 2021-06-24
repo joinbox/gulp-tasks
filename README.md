@@ -30,7 +30,7 @@ Styles support:
 1. Copy the contents of the provided [gulpfile.js](gulpfile.js) to your project
 1. Change import path: `{ buildJavaScript, buildStyles } = require('@joinbox/build-task')`
 1. Modify paths where needed
-1. Run `npx gulp` (for dev task) and `npx gulp live`
+1. Run `npx gulp` (for dev task) and `npx gulp prod`
 
 
 # Tests
@@ -56,7 +56,7 @@ into your dist files by the build task)
     ```
     "scripts": {
         "start": "npx gulp",
-        "build": "npx gulp live"
+        "build": "npx gulp prod"
     },
     ```
 
