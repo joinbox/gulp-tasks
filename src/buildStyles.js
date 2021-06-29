@@ -4,7 +4,6 @@ const notifier = require('node-notifier');
 const sassGlob = require('gulp-sass-glob');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
-const calc = require('postcss-calc');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpSize = require('gulp-size');
@@ -53,7 +52,6 @@ const buildStyles = ({
                 autoprefixer({
                     overrideBrowserslist: supportedBrowsers,
                 }),
-                calc,
             ]))
             // .pipe(minify ? cleanCSS() : () => {})
             .pipe(size)
