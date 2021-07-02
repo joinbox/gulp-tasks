@@ -67,7 +67,6 @@ test('converts nullish coaelscing', async(t) => {
         destinationPath: destination,
     });
     const content = readFileSync(join(destination, 'main.js'), 'utf8');
-    console.log(content);
     t.is(content.includes('??'), false);
     await clear();
 });
