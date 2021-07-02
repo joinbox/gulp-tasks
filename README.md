@@ -72,3 +72,8 @@ by the task's `useBuiltIns: true` which compiles `core-js` into the dist files w
 * Delete current modules: `rm -r node_modules`
 * Install modules: `npm i`
 * `npm start`
+
+# Migrate from v1.x to v2.x
+
+Main change is the update from Node Sass to Dart Sass which comes with a breaking change for 
+SASS files: One must use `math.div` instead of `/`. There's an [auto migrate plugin](https://sass-lang.com/documentation/breaking-changes/slash-div).

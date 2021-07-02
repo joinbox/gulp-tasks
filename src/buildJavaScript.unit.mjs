@@ -60,4 +60,16 @@ test('minifies file', async(t) => {
     await clear();
 });
 
+test('converts nullish coaelscing', async(t) => {
+    await clear();
+    await buildJavaScript({
+        sourcePath: join(source, 'main.js'),
+        destinationPath: destination,
+    });
+    const content = readFileSync(join(destination, 'main.js'), 'utf8');
+    console.log(content);
+    t.is(content.includes('??'), false);
+    await clear();
+});
+
 

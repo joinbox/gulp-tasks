@@ -1,5 +1,7 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+// Use Dart Sass as compiler: It's Sass' default implementation and works with newer versions
+// of node that node-sass
+const sass = require('gulp-sass')(require('sass'));
 const notifier = require('node-notifier');
 const sassGlob = require('gulp-sass-glob');
 const postcss = require('gulp-postcss');
@@ -7,9 +9,6 @@ const autoprefixer = require('autoprefixer');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpSize = require('gulp-size');
-// Use Dart Sass as compiler: It's Sass' default implementation and works with newer versions
-// of node that node-sass
-sass.compiler = require('sass');
 
 const buildStyles = ({
     sourcePath,
@@ -43,8 +42,10 @@ const buildStyles = ({
             // If gulp-sass errors, queue continues and will display success message at the end;
             // therefore we have to handle those errors explicitly
             // Use regular function as logError needs scope ('this')
+            // It seems that with Dart Sass, sync rendering is (much) faster than async; see
+            // https://www.npmjs.com/package/gulp-sass
             // eslint-disable-next-line prefer-arrow-callback
-            .pipe(sass(sassOptions).on('error', function(err) {
+            .pipe(sass.sync(sassOptions).on('error', function(err) {
                 sass.logError.call(this, err);
                 didFail = true;
             }))
