@@ -63,8 +63,10 @@ const build = ({
                         // (as events does not exist in the browser environment)
                         preferBuiltins: false,
                     }),
-                    // Babel must come before common-js or common-js will be given too modern
-                    // code to handle
+                    // Some node modules use CJS (instead of native ES6 modules) – we must teach
+                    // rollup how to resolve them. Must be placed before babel(), see
+                    // https://www.npmjs.com/package/@rollup/plugin-babel
+                    commonjs(),
                     babel({
                         babelHelpers: 'bundled',
                         plugins: [
@@ -83,9 +85,6 @@ const build = ({
                             }],
                         ],
                     }),
-                    // Some node modules use CJS (instead of native ES6 modules) – we must teach
-                    // rollup how to resolve them
-                    commonjs(),
                     // If environment is not develop, minify JavaScript. Don't do so on dev
                     // environment to improve speed
                     ...(minify ? [terser()] : []),
